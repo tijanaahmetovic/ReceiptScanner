@@ -26,7 +26,7 @@ namespace ReceiptScanner
 
         public string GetProductString()
         {
-            string WeightFormat = Weight > 0 ? Weight.ToString() : "N / A"; 
+            string WeightFormat = Weight > 0 ? Weight.ToString()+"g" : "N/A"; 
             return String.Format("...{0}\nPrice: ${1:0.00}\n{2}...\nWeight: {3}", Name, Price, Description.Substring(0, 10), WeightFormat);
         }
     }

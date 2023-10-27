@@ -13,22 +13,18 @@ namespace ReceiptScanner
 class Program
     {
         static HttpClient client = new HttpClient();
-        
-        static void ShowProduct(Product product)
+        static string path = "https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1";
+
+        static async Task<List<Product>> GetProductAsync()
         {
-            Console.WriteLine($"Name: {product.Name}\tPrice: " +
-                $"{product.Price}\"Description: {product.Description}");
-        }
-        static async Task<List<Product>> GetProductAsync(string path)
-        {
-            List<Product> receipt = null;
+            List<Product> products = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                receipt = JsonConvert.DeserializeObject<List<Product>>(jsonString);
+                products = JsonConvert.DeserializeObject<List<Product>>(jsonString);
             }
-            return receipt;
+            return products;
         }
 
 
@@ -38,15 +34,13 @@ class Program
         }
         static async Task RunAsync()
         {
-            client.BaseAddress = new Uri("https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-
             try
             {
-                List<Product> products = await GetProductAsync("https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1");
+                List<Product> products = await GetProductAsync();
                 Receipt receipt = new Receipt(products);
                 receipt.PrintReceipt();
                 

@@ -10,7 +10,7 @@ namespace ReceiptScanner
     {
         public Receipt(List<Product> products)
         {
-            Products = products;
+            Products = new List<Product>(products);
         }
 
         public List<Product> Products { get; set; }
