@@ -12,7 +12,7 @@ namespace ReceiptScanner
     class ReceiptRepo
     {
 
-        static string path = "https://mocki.io/v1/29cf0412-8229-4d35-a61a-c64939b946f8 ";
+        static string path = "https://interview-task-api.mca.dev/qr-scanner-codes/alpha-qr-gFpwhsQ8fkY1";
 
         private HttpClient client;
 
